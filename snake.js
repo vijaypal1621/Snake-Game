@@ -23,24 +23,41 @@ function init(){
         }
             ,
         drawSnake: function(){
-            pen.fillStyle="red";
+            pen.fillStyle=this.color;
             for(var i=0;i<this.cells.length;i++){
                 pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs-2,cs-2);
             }
             
+        },
+        updateSnake : function(){
+            this.cells.pop(); // basically we are removing the first cell and adding it to the last
+            var oldHeadX=this.cells[0].x;
+            var oldHeadY=this.cells[0].y;
+
+            var newHeadX=oldHeadX+1;
+            var newheadY=oldHeadY;
+            this.cells.unshift({x:newHeadX,y:newheadY}); // adding new cell at the begining
+
         }
+
 
     }
     snake.createSnake();
 
+    //Add a event listener on the document object
+    
+
 }
 
 function draw(){
+
+    // erase the prev scene cell which is at the beginning
+    pen.clearRect(0,0,W,H);
     snake.drawSnake();
 }
 
 function update(){
-    
+    snake.updateSnake(); // during Inactivity of the user
 }
 
 function gameloop(){
