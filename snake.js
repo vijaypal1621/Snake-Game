@@ -34,9 +34,22 @@ function init(){
             var oldHeadX=this.cells[0].x;
             var oldHeadY=this.cells[0].y;
 
-            var newHeadX=oldHeadX+1;
-            var newheadY=oldHeadY;
-            this.cells.unshift({x:newHeadX,y:newheadY}); // adding new cell at the begining
+            var nextX,nextY;
+
+            if(this.direction == "right"){
+                nextX=oldHeadX + 1;
+                nextY=oldHeadY;
+            }else if(this.direction == "left"){
+                nextX=oldHeadX - 1;
+                nextY=oldHeadY;
+            }else if(this.direction == "down"){ // down side is positive
+                nextX=oldHeadX;
+                nextY=oldHeadY + 1; 
+            }else{
+                nextX=oldHeadX;
+                nextY=oldHeadY - 1;
+            }
+            this.cells.unshift({x:nextX,y:nextY}); // adding new cell at the begining
 
         }
 
@@ -45,7 +58,24 @@ function init(){
     snake.createSnake();
 
     //Add a event listener on the document object
-    
+    function keyPressed(e){
+        
+        if(e.key == "ArrowLeft"){
+            snake.direction = "left";
+        }else if(e.key == "ArrowRight"){
+            snake.direction = "right";
+        }else if(e.key == "ArrowUp"){
+            snake.direction = "up";
+        }else if(e.key == "ArrowDown"){
+            snake.direction = "down"; 
+        }
+
+        console.log(snake.direction);
+
+    }
+    document.addEventListener('keydown',keyPressed);
+
+
 
 }
 
@@ -57,7 +87,7 @@ function draw(){
 }
 
 function update(){
-    snake.updateSnake(); // during Inactivity of the user
+    // snake.updateSnake(); // during Inactivity of the user
 }
 
 function gameloop(){
