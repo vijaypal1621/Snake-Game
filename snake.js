@@ -6,6 +6,7 @@ function init(){
     H = canvas.width = 1000;
     pen = canvas.getContext('2d');
     cs = 67;
+    game_over = false;
 
     food = getRandomFood();
 
@@ -63,6 +64,15 @@ function init(){
             }
             this.cells.unshift({x:nextX,y:nextY}); // adding new cell at the begining
 
+            // if snake goes out of window
+            // then game is over
+
+            var last_x = Math.round(W/cs);
+            var last_y = Math.round(H/cs);
+
+            if(this.cells[0].x < -1 || this.cells[0].y < -1 || this.cells[0].x > last_x || this.cells[0].y > last_y ){
+                game_over = true;
+            }
 
 
 
@@ -105,7 +115,7 @@ function draw(){
 } 
 
 function update(){
-    // snake.updateSnake(); // during Inactivity of the user
+     snake.updateSnake(); // during Inactivity of the user
 }
 
 function getRandomFood(){ // to get a random food co-ordinates
@@ -121,6 +131,12 @@ function getRandomFood(){ // to get a random food co-ordinates
 }
 
 function gameloop(){
+    if(game_over){
+        clearInterval(f);
+        alert("game is over ");
+        return;
+    }
+
     draw();
     update();
 }
