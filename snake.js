@@ -32,10 +32,20 @@ function init(){
             
         },
         updateSnake : function(){
-            this.cells.pop(); // basically we are removing the first cell and adding it to the last
+
+            // check if snake has eaten the food, increase the length by 1
+            // also generate next food location
+
             var oldHeadX=this.cells[0].x;
             var oldHeadY=this.cells[0].y;
 
+            if(oldHeadX== food.x && oldHeadY == food.y){
+                food = getRandomFood();
+            }else{
+                // only when food is not eaten
+                this.cells.pop(); // basically we are removing the first cell and adding it to the last
+            }
+            
             var nextX,nextY;
 
             if(this.direction == "right"){
@@ -52,6 +62,10 @@ function init(){
                 nextY=oldHeadY - 1;
             }
             this.cells.unshift({x:nextX,y:nextY}); // adding new cell at the begining
+
+
+
+
 
         }
 
@@ -86,11 +100,12 @@ function draw(){
     // erase the prev scene cell which is at the beginning
     pen.clearRect(0,0,W,H);
     snake.drawSnake();
+    pen.fillStyle = food.color;
     pen.fillRect(food.x*cs,food.y*cs,cs,cs);
-}
+} 
 
 function update(){
-     // snake.updateSnake(); // during Inactivity of the user
+    // snake.updateSnake(); // during Inactivity of the user
 }
 
 function getRandomFood(){ // to get a random food co-ordinates
