@@ -7,6 +7,15 @@ function init(){
     pen = canvas.getContext('2d');
     cs = 67;
     game_over = false;
+    score = 5;
+
+    // create a Image Object for food
+    food_img = new Image();
+    food_img.src = "Assets/food.png";
+
+    // create a new trophy
+    trophy = new Image();
+    trophy.src = "Assets/trophy.png";
 
     food = getRandomFood();
 
@@ -42,6 +51,7 @@ function init(){
 
             if(oldHeadX== food.x && oldHeadY == food.y){
                 food = getRandomFood();
+                score++;
             }else{
                 // only when food is not eaten
                 this.cells.pop(); // basically we are removing the first cell and adding it to the last
@@ -111,7 +121,12 @@ function draw(){
     pen.clearRect(0,0,W,H);
     snake.drawSnake();
     pen.fillStyle = food.color;
-    pen.fillRect(food.x*cs,food.y*cs,cs,cs);
+    pen.drawImage(food_img,food.x*cs,food.y*cs,cs,cs);
+
+    pen.drawImage(trophy,18,20,cs,cs);
+    pen.fillStyle = "white";
+    pen.font = "30px Roboto";
+    pen.fillText(score,50,50);
 } 
 
 function update(){
