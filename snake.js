@@ -2,11 +2,12 @@
 function init(){
     
     var canvas = document.getElementById('mycanvas');
-    W = canvas.height = 1000;
-    H = canvas.width = 1000;
+    W = canvas.height = 600;
+    H = canvas.width = 600;
     pen = canvas.getContext('2d');
-    cs = 67;
+    cs = 40;
     game_over = false;
+    game_pause = false;
     score = 5;
 
     // create a Image Object for food
@@ -44,9 +45,9 @@ function init(){
         updateSnake : function(){
 
             // check if snake has eaten the food, increase the length by 1
-            // also generate next food location
-
+            // also generate next food location            
             var oldHeadX=this.cells[0].x;
+            console.log(oldHeadX);
             var oldHeadY=this.cells[0].y;
 
             if(oldHeadX== food.x && oldHeadY == food.y){
@@ -80,7 +81,7 @@ function init(){
             var last_x = Math.round(W/cs);
             var last_y = Math.round(H/cs);
 
-            if(this.cells[0].x < -1 || this.cells[0].y < -1 || this.cells[0].x > last_x || this.cells[0].y > last_y ){
+            if(this.cells[0].x <= -1 || this.cells[0].y <= -1 || this.cells[0].x > last_x-1 || this.cells[0].y > last_y-1 ){
                 game_over = true;
             }
 
@@ -95,18 +96,21 @@ function init(){
 
     //Add a event listener on the document object
     function keyPressed(e){
-        
         if(e.key == "ArrowLeft"){
+            if(snake.direction != "right")
             snake.direction = "left";
         }else if(e.key == "ArrowRight"){
+            if(snake.direction != "left")
             snake.direction = "right";
         }else if(e.key == "ArrowUp"){
+            if(snake.direction != "down")
             snake.direction = "up";
         }else if(e.key == "ArrowDown"){
+            if(snake.direction != "up")
             snake.direction = "down"; 
+        }else if(e.code=="Space"){
+            game_pause = game_pause ^ 1;
         }
-
-        console.log(snake.direction);
 
     }
     document.addEventListener('keydown',keyPressed);
@@ -151,10 +155,12 @@ function gameloop(){
         alert("game is over ");
         return;
     }
+    if(!game_pause){        
+        draw();
+        update();
+    }
 
-    draw();
-    update();
 }
 
 init();
-var f= setInterval(gameloop,100);
+var f= setInterval(gameloop,125);
