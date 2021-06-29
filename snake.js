@@ -7,6 +7,8 @@ function init(){
     pen = canvas.getContext('2d');
     cs = 67;
 
+    food = getRandomFood();
+
     snake = { // snake object
         initial_length : 5,
         color: "blue",
@@ -84,10 +86,23 @@ function draw(){
     // erase the prev scene cell which is at the beginning
     pen.clearRect(0,0,W,H);
     snake.drawSnake();
+    pen.fillRect(food.x*cs,food.y*cs,cs,cs);
 }
 
 function update(){
-    // snake.updateSnake(); // during Inactivity of the user
+     // snake.updateSnake(); // during Inactivity of the user
+}
+
+function getRandomFood(){ // to get a random food co-ordinates
+    var foodX= Math.round(Math.random()*(W-cs)/cs);
+    var foodY= Math.round(Math.random()*(H-cs)/cs);
+
+    var food = { // food object
+        x:foodX,
+        y:foodY,
+        color:"red",
+    }
+    return food; 
 }
 
 function gameloop(){
