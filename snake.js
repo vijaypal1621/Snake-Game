@@ -1,3 +1,6 @@
+
+
+
 // defining the initial objects and state
 function init(){
     
@@ -50,14 +53,6 @@ function init(){
             console.log(oldHeadX);
             var oldHeadY=this.cells[0].y;
 
-            if(oldHeadX== food.x && oldHeadY == food.y){
-                food = getRandomFood();
-                score++;
-            }else{
-                // only when food is not eaten
-                this.cells.pop(); // basically we are removing the first cell and adding it to the last
-            }
-            
             var nextX,nextY;
 
             if(this.direction == "right"){
@@ -73,6 +68,21 @@ function init(){
                 nextX=oldHeadX;
                 nextY=oldHeadY - 1;
             }
+
+            if(checkMatchCoordinates(nextX,nextY)){
+                game_over=true;
+            }
+
+            if(oldHeadX== food.x && oldHeadY == food.y){
+                food = getRandomFood();
+                score++;
+            }else{
+                // only when food is not eaten
+                this.cells.pop(); // basically we are removing the first cell and adding it to the last
+
+            }
+            
+            
             this.cells.unshift({x:nextX,y:nextY}); // adding new cell at the begining
 
             // if snake goes out of window
@@ -117,6 +127,16 @@ function init(){
 
 
 
+}
+
+
+function checkMatchCoordinates(x,y){
+    for(var i=0;i<snake.cells.length;i++){    
+        if(x == snake.cells[i].x && y == snake.cells[i].y){
+            return true;
+        }
+    }    
+    return false;
 }
 
 function draw(){
