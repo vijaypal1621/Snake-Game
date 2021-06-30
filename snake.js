@@ -39,8 +39,10 @@ function init(){
         }
             ,
         drawSnake: function(){
+            pen.fillStyle="red";
+            pen.fillRect(this.cells[0].x*cs,this.cells[0].y*cs,cs-2,cs-2);
             pen.fillStyle=this.color;
-            for(var i=0;i<this.cells.length;i++){
+            for(var i=1;i<this.cells.length;i++){
                 pen.fillRect(this.cells[i].x*cs,this.cells[i].y*cs,cs-2,cs-2);
             }
             
