@@ -24,7 +24,7 @@ function init(){
     food = getRandomFood();
 
     snake = { // snake object
-        initial_length : 5,
+        initial_length : 2,
         color: "blue",
         cells : [],
         direction:"right", // default direction
@@ -75,6 +75,13 @@ function init(){
 
             if(oldHeadX== food.x && oldHeadY == food.y){
                 food = getRandomFood();
+                while(true){
+                    if(checkMatchCoordinates(food.x,food.y)){
+                        food=getRandomFood();
+                    }else{
+                        break;
+                    }
+                }
                 score++;
             }else{
                 // only when food is not eaten
