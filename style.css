@@ -1,12 +1,25 @@
+*{
+    margin: 0px;
+}
 
-.container{
+body{
+    margin: 0px;
+}
+.containerBlock{    
+    min-height: 760px;
+    margin: 0px;
     text-align: center;
-    /* background-image: url("./Assets/snakeImage.png");
-    background-repeat: no-repeat;
-    background-position-x: right; */
+    background-image: url("./Assets/bg5.jpg");
+    /* background-repeat: no-repeat; */
+    /* background-position-x: right;  */
+    background-size: cover;
 }
 
 #mycanvas{
     background-image: url("./Assets/bg2.jpg");
     border: 10px solid green;
+}
+
+.profile{
+    text-align: -webkit-right;
 }
