@@ -1,10 +1,12 @@
 
 
-
+// game_over=false;
+state=true;
 
 
 // defining the initial objects and state
 function init(){
+    f= setInterval(gameloop,125);
     
     var canvas = document.getElementById('mycanvas');
     W = canvas.height = 600;
@@ -117,6 +119,7 @@ function init(){
 
     //Add a event listener on the document object
     function keyPressed(e){
+        console.log(e.code);
         if(e.key == "ArrowLeft"){
             if(snake.direction != "right")
             snake.direction = "left";
@@ -134,7 +137,10 @@ function init(){
         }
 
     }
-    document.addEventListener('keydown',keyPressed);
+    if(state){
+        document.addEventListener('keydown',keyPressed);
+    }
+    
 
 
 
@@ -184,7 +190,12 @@ function gameloop(){
     if(game_over){
         clearInterval(f);
         alert("game is over ");
-        return;
+        // location.reload();
+        // return;
+        state=false;
+        game_over=false;
+        init();
+        // return;
     }
     if(!game_pause){        
         draw();
@@ -192,6 +203,6 @@ function gameloop(){
     }
 
 }
-
+console.log("yaahoo");
 init();
-var f= setInterval(gameloop,125);
+// var f= setInterval(gameloop,125);
