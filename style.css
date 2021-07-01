@@ -13,6 +13,7 @@ body{
     /* background-repeat: no-repeat; */
     /* background-position-x: right;  */
     background-size: cover;
+    overflow: hidden;
 }
 
 #mycanvas{
@@ -21,5 +22,17 @@ body{
 }
 
 .profile{
-    text-align: -webkit-right;
+    /* text-align: -webkit-right; */
+}
+.rules_LeftRighticons{
+    display: flex;
+    justify-content: space-evenly;
+}
+.spaceBarRule{
+    padding-top: 40px;
+}
+.spaceBarImage{
+    height: 54px;
+    border-radius: 10px;
+    width: 136px;
 }
