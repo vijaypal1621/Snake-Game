@@ -2,7 +2,9 @@
 
 // game_over=false;
 state=true;
-
+startGame=true;
+game_pause = true;
+var ModalShow=false;
 
 // defining the initial objects and state
 function init(){
@@ -14,7 +16,7 @@ function init(){
     pen = canvas.getContext('2d');
     cs = 40;
     game_over = false;
-    game_pause = false;
+    // game_pause = false;
     score = 5;
 
     // create a Image Object for food
@@ -77,6 +79,7 @@ function init(){
 
             if(checkMatchCoordinates(nextX,nextY)){
                 game_over=true;
+                ModalShow=true;
             }
 
             if(oldHeadX== food.x && oldHeadY == food.y){
@@ -106,6 +109,7 @@ function init(){
 
             if(this.cells[0].x <= -1 || this.cells[0].y <= -1 || this.cells[0].x > last_x-1 || this.cells[0].y > last_y-1 ){
                 game_over = true;
+                ModalShow=true;
             }
 
 
@@ -186,18 +190,44 @@ function getRandomFood(){ // to get a random food co-ordinates
     return food; 
 }
 
+var play=false;
+
+
+
+var playAgainButton = document.getElementById('playAgain');
+        playAgainButton.addEventListener('click',function(){
+            play=true;
+            startGame=true;
+            ModalShow=false;
+            gameloop();
+        })
+
 function gameloop(){
     if(game_over){
         clearInterval(f);
-        alert("game is over ");
-        // location.reload();
-        // return;
-        state=false;
-        game_over=false;
-        init();
-        // return;
+        if(ModalShow){
+            $('#myModal').modal('show');
+            ModalShow=false;
+        }
+        
+        
+        if(play){
+            startGame=true;
+            // playAgainButton.setAttribute('data-dismiss','modal');
+            console.log('Play buttom');
+            play=false;
+            state=false;
+            game_over=false;
+            game_pause=true;
+            init();
+            
+        }
+        
+
+        
     }
-    if(!game_pause){        
+    if(!game_pause || startGame){        
+        startGame=false;
         draw();
         update();
     }
@@ -206,3 +236,6 @@ function gameloop(){
 console.log("yaahoo");
 init();
 // var f= setInterval(gameloop,125);
+
+// data-dismiss="modal"
+
