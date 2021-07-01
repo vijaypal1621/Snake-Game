@@ -1,6 +1,8 @@
 
 
 
+
+
 // defining the initial objects and state
 function init(){
     

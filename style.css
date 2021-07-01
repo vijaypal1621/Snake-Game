@@ -5,6 +5,13 @@
 body{
     margin: 0px;
 }
+.header{
+    display: flex;
+    justify-content: space-around;
+}
+#userImage{
+    border-radius: 10px;
+}
 .containerBlock{    
     min-height: 760px;
     margin: 0px;
